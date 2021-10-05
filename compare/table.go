@@ -51,19 +51,19 @@ func findInOtherTable(rowToFind database.Row, table database.Table, keyColIds []
 	// TODO: Implement an efficient search algorithm here!
 
 	var rowId uint64
-	var isSame bool
+	var found bool
 	for _, keyColId := range keyColIds {
 		valToCompare := rowToFind[keyColId]
 		for i, row := range table {
 			if row != nil && *(row[keyColId]).(*interface{}) == *(valToCompare).(*interface{}) {
 				rowId = uint64(i)
-				isSame = true
+				found = true
 				break
 			} else {
-				isSame = false
+				found = false
 			}
 		}
 	}
 
-	return rowId, isSame
+	return rowId, found
 }
