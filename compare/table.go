@@ -11,7 +11,7 @@ import (
 //
 //    // For Example:
 //    diffRows, err := CompareTables(table1, table2)
-func CompareTables(table1, table2 database.Table, keyColIds []uint64) [][]database.Row {
+func CompareTables(table1, table2 database.Table, keyColIds, ignoreColIds []uint64) [][]database.Row {
 	var diffRows [][]database.Row
 
 	for _, row1 := range table1 {
@@ -26,10 +26,9 @@ func CompareTables(table1, table2 database.Table, keyColIds []uint64) [][]databa
 		// Row was found in the other table
 		row2 := table2[idx]
 
-		isSame := CompareRows(row1, row2)
+		isSame := CompareRows(row1, row2, append(keyColIds, ignoreColIds...))
 		if !isSame {
 			diffRows = append(diffRows, []database.Row{row1, row2})
-			continue
 		}
 
 		// Remove the row from the table2 as it is also present in table1

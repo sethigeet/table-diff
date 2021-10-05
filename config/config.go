@@ -14,7 +14,8 @@ type DBConfigType struct {
 }
 
 type DiffAlgorithmConfigType struct {
-	KeyColumns []string
+	KeyColumns    []string
+	IgnoreColumns []string
 }
 
 type ConfigType struct {
@@ -46,7 +47,8 @@ func init() {
 		},
 		DiffAlgorithm: DiffAlgorithmConfigType{
 			// TODO: Don't hardcode this
-			KeyColumns: []string{"first_name", "last_name"},
+			KeyColumns:    []string{"first_name", "last_name"},
+			IgnoreColumns: []string{"id"},
 		},
 	}
 }
