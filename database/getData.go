@@ -2,6 +2,9 @@ package database
 
 import (
 	"fmt"
+	"strings"
+
+	"github.com/sethigeet/table-diff/config"
 )
 
 // GetTableData gets the all the data from the specified table name using the
@@ -12,7 +15,11 @@ import (
 //    data := GetTableData("my_table")
 func GetTableData(tableName string) ([]string, Table, error) {
 	// Construct the sql query
-	query := fmt.Sprintf("SELECT * FROM %s;", tableName)
+	query := fmt.Sprintf(
+		"SELECT * FROM %s ORDER BY %s;",
+		tableName,
+		strings.Join(config.Config.DiffAlgorithm.KeyColumns, ","),
+	)
 
 	// Execute the sql query
 	res, err := DB.Query(query)

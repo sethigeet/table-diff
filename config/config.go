@@ -11,6 +11,7 @@ import (
 type DBConfigType struct {
 	SSLMode, Host, User, Password, DBName string
 	Port                                  uint16
+	Table1Name, Table2Name                string
 }
 
 type DiffAlgorithmConfigType struct {
@@ -44,6 +45,10 @@ func init() {
 			Password: os.Getenv("DB_PASSWORD"),
 			DBName:   os.Getenv("DB_DBNAME"),
 			Port:     uint16(port),
+
+			// TODO: Don't hardcode this
+			Table1Name: "mock_data_1",
+			Table2Name: "mock_data_2",
 		},
 		DiffAlgorithm: DiffAlgorithmConfigType{
 			// TODO: Don't hardcode this
