@@ -1,3 +1,6 @@
+-- Delete the original tables if they exist
+drop table if exists mock_data_1;
+drop table if exists mock_data_2;
 -- Mock Data 1
 create table MOCK_DATA_1 (
   id INT,
@@ -187,7 +190,7 @@ insert into MOCK_DATA_2 (
 values (
     2,
     'Alene',
-    'Babbs',
+    'Babbses',
     'ababbs1@squarespace.com',
     'Genderfluid',
     '110.144.137.245'

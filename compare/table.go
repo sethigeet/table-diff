@@ -11,11 +11,11 @@ import (
 //
 //    // For Example:
 //    diffRows, err := CompareTables(table1, table2)
-func CompareTables(table1, table2 database.Table, anchorColIdx uint64) [][]database.Row {
+func CompareTables(table1, table2 database.Table, keyColIds []uint64) [][]database.Row {
 	var diffRows [][]database.Row
 
 	for _, row1 := range table1 {
-		idx, found := findInOtherTable(row1, table2, anchorColIdx)
+		idx, found := findInOtherTable(row1, table2, keyColIds)
 
 		// Row is not found in the other table
 		if !found {
@@ -48,15 +48,23 @@ func CompareTables(table1, table2 database.Table, anchorColIdx uint64) [][]datab
 // findInOtherTable tries to find the same row in the other table and return the
 // index of the row found in the other table if it was found. It also returns a
 // bool stating whether the row was found in the other table or not.
-func findInOtherTable(rowToFind database.Row, table database.Table, anchorColIdx uint64) (uint64, bool) {
+func findInOtherTable(rowToFind database.Row, table database.Table, keyColIds []uint64) (uint64, bool) {
 	// TODO: Implement an efficient search algorithm here!
 
-	valToCompare := rowToFind[anchorColIdx]
-	for i, row := range table {
-		if row != nil && *(row[anchorColIdx]).(*interface{}) == *(valToCompare).(*interface{}) {
-			return uint64(i), true
+	var rowId uint64
+	var isSame bool
+	for _, keyColId := range keyColIds {
+		valToCompare := rowToFind[keyColId]
+		for i, row := range table {
+			if row != nil && *(row[keyColId]).(*interface{}) == *(valToCompare).(*interface{}) {
+				rowId = uint64(i)
+				isSame = true
+				break
+			} else {
+				isSame = false
+			}
 		}
 	}
 
-	return 0, false
+	return rowId, isSame
 }

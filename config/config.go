@@ -14,7 +14,7 @@ type DBConfigType struct {
 }
 
 type DiffAlgorithmConfigType struct {
-	AnchorColumn string
+	KeyColumns []string
 }
 
 type ConfigType struct {
@@ -45,8 +45,8 @@ func init() {
 			Port:     uint16(port),
 		},
 		DiffAlgorithm: DiffAlgorithmConfigType{
-			// TODO: Fix this
-			AnchorColumn: "first_name",
+			// TODO: Don't hardcode this
+			KeyColumns: []string{"first_name", "last_name"},
 		},
 	}
 }
