@@ -10,23 +10,23 @@ import (
 //
 //    // For Example:
 //    data := GetTableData("my_table")
-func GetTableData(tableName string) ([][]interface{}, error) {
+func GetTableData(tableName string) ([]string, Table, error) {
 	// Construct the sql query
 	query := fmt.Sprintf("SELECT * FROM %s;", tableName)
 
 	// Execute the sql query
 	res, err := DB.Query(query)
 	if err != nil {
-		return nil, fmt.Errorf("errors while getting the data: \n%s", err)
+		return nil, nil, fmt.Errorf("errors while getting the data: \n%s", err)
 	}
 	defer res.Close()
 
-	var rows [][]interface{}
+	var table Table
 
 	// Get the names of all the columns that were returned
 	cols, err := res.Columns()
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	// Interate through all the rows
 	for res.Next() {
@@ -36,13 +36,13 @@ func GetTableData(tableName string) ([][]interface{}, error) {
 		for i := range temp {
 			temp[i] = new(interface{})
 		}
-		// Copy the row into our array
+		// Copy the row into our table
 		if err := res.Scan(temp...); err != nil {
-			return nil, err
+			return nil, nil, err
 		}
-		// Add the temporary array to the rows array
-		rows = append(rows, temp)
+		// Add the temporary array to the table
+		table = append(table, temp)
 	}
 
-	return rows, nil
+	return cols, table, nil
 }

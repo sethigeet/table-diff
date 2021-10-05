@@ -13,8 +13,13 @@ type DBConfigType struct {
 	Port                                  uint16
 }
 
+type DiffAlgorithmConfigType struct {
+	AnchorColumn string
+}
+
 type ConfigType struct {
-	DB DBConfigType
+	DB            DBConfigType
+	DiffAlgorithm DiffAlgorithmConfigType
 }
 
 var Config ConfigType
@@ -38,6 +43,10 @@ func init() {
 			Password: os.Getenv("DB_PASSWORD"),
 			DBName:   os.Getenv("DB_DBNAME"),
 			Port:     uint16(port),
+		},
+		DiffAlgorithm: DiffAlgorithmConfigType{
+			// TODO: Fix this
+			AnchorColumn: "first_name",
 		},
 	}
 }

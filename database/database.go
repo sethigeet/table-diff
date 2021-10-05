@@ -13,3 +13,7 @@ func init() {
 		log.Fatalf("errors while connecting to the database: \n%s", err)
 	}
 }
+
+type Row []interface{}
+
+type Table []Row
