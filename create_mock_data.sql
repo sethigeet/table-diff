@@ -23,8 +23,8 @@ values (
     'Licha',
     'Stoddard',
     'lstoddard0@army.mil',
-    'Non-binary',
-    '175.142.80.103'
+    'Female',
+    '175.142.80.205'
   );
 insert into MOCK_DATA_1 (
     id,
@@ -38,7 +38,7 @@ values (
     2,
     'Alene',
     'Babbs',
-    'ababbs1@squarespace.com',
+    'ababbs1@gmail.com',
     'Genderfluid',
     '110.144.137.245'
   );
@@ -54,7 +54,7 @@ values (
     3,
     'Sybilla',
     'Risley',
-    'srisley2@unicef.org',
+    'srisley2@tempmail.org',
     'Non-binary',
     '208.54.64.211'
   );
