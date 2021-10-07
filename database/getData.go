@@ -13,12 +13,25 @@ import (
 //
 //    // For Example:
 //    data := GetTableData("my_table")
-func GetTableData(tableName string) ([]string, Table, error) {
+func GetTableData(tableName string, additiionalQuery ...string) ([]string, Table, error) {
+	additiionalQueryLen := len(additiionalQuery)
+	middleQuery := ""
+	if additiionalQueryLen > 0 {
+		middleQuery = additiionalQuery[0]
+	}
+
+	endQuery := ""
+	if additiionalQueryLen > 1 {
+		endQuery = additiionalQuery[1]
+	}
+
 	// Construct the sql query
 	query := fmt.Sprintf(
-		"SELECT * FROM %s ORDER BY %s;",
+		"SELECT * FROM %s %s ORDER BY %s %s;",
 		tableName,
+		middleQuery,
 		strings.Join(config.Config.DiffAlgorithm.KeyColumns, ","),
+		endQuery,
 	)
 
 	// Execute the sql query

@@ -52,7 +52,7 @@ func init() {
 		},
 		DiffAlgorithm: DiffAlgorithmConfigType{
 			// TODO: Don't hardcode this
-			KeyColumns:    []string{"first_name", "last_name"},
+			KeyColumns:    []string{"name", "username"},
 			IgnoreColumns: []string{"id"},
 		},
 	}
