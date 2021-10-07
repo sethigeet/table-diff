@@ -5,6 +5,8 @@ from rich.progress import track
 
 fake = Faker("en_US")
 
+FILE_NAME = "./create_mock_data_large.sql"
+
 TABLE_STRUCTURE = {
     "id": "SERIAL PRIMARY KEY",
     "username": "VARCHAR(50)",
@@ -65,11 +67,11 @@ common_insert_queries = "\n".join(common_insert_queries)
 
 # Make the file empty
 print("Emptying the file...", end="")
-with open("./create_mock_data_larger.sql", "w") as file:
+with open(FILE_NAME, "w") as file:
     file.write("")
 print("[bold green]Done[/bold green]")
 
-file = open("./create_mock_data_larger.sql", "a")
+file = open(FILE_NAME, "a")
 
 print("Writing drop table queries...", end="")
 file.write("-- Drop the old tables\n")

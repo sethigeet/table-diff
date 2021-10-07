@@ -2,3 +2,5 @@ bin/
 
 .env.*
 !.env.example
+
+create_mock_data_larger.sql
