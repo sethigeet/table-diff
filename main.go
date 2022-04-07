@@ -70,14 +70,20 @@ func getDiffRowsByChar(keyColIds, ignoreColIds []uint64, startChar rune) [][]dat
 		config.Config.DiffAlgorithm.KeyColumns[0],
 		strconv.QuoteRune(startChar)[:2],
 	)
-	_, table1, err := database.GetTableData(config.Config.DB.Table1Name, extraQuery)
+	cols1, table1, err := database.GetTableData(config.Config.DB.Table1Name, extraQuery)
 	if err != nil {
 		log.Fatalf("errors while reading the table: \n%s", err)
 	}
 
-	_, table2, err := database.GetTableData(config.Config.DB.Table2Name, extraQuery)
+	cols2, table2, err := database.GetTableData(config.Config.DB.Table2Name, extraQuery)
 	if err != nil {
 		log.Fatalf("errors while reading the table: \n%s", err)
+	}
+
+	for i, col1 := range cols1 {
+		if cols2[i] != col1 {
+			log.Fatalln("errors while reading the table: \nthe columns of both the tables are not the same!")
+		}
 	}
 
 	return compare.CompareTables(table1, table2, keyColIds, ignoreColIds)
